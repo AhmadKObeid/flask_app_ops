@@ -5,7 +5,6 @@ pipeline {
   }
   environment {
     DOCKERHUB_CREDENTIALS = credentials('dockerhub-admin')
-    DOCKER_OPTS="-H tcp://0.0.0.0:2376 -H unix:///var/run/docker.sock"
   }
   stages {
     stage('Checkout Flask-APP') {
@@ -15,9 +14,7 @@ pipeline {
     }
     stage('Build and Test') {
       steps {
-        container('docker') {
           sh 'docker build -t ahmadobeid/flask-app .'
-        }
       }
     }
     stage('Login') {
@@ -27,17 +24,23 @@ pipeline {
     }
     stage('Push') {
       steps {
-        container('docker') {
           sh 'docker push ahmadobeid/flask-app'
-        }
+      }
+    }
+  }
+  stage('Checkout Flask-APP-OPS') {
+      steps {
+        git url: 'https://github.com/AhmadKObeid/flask_app_ops.git', branch : 'main', credentialsId: 'github-admin'
+      }
+    }
+  stage('Deploy') {
+    steps {
+          sh 'ls'
       }
     }
   }
   post {
     always {
-      container('docker') {
         sh 'docker logout'
-      }
     }
   }
-}
