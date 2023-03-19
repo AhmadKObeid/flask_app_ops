@@ -14,7 +14,9 @@ pipeline {
     }
     stage('Build and Test') {
       steps {
-        sh 'docker build -t ahmadobeid/flask-app .'
+        container('docker') {
+          sh 'docker build -t ahmadobeid/flask-app .'
+        }
       }
     }
     stage('Login') {
@@ -24,13 +26,17 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker push ahmadobeid/flask-app'
+        container('docker') {
+          sh 'docker push ahmadobeid/flask-app'
+        }
       }
     }
   }
   post {
     always {
-      sh 'docker logout'
+      container('docker') {
+        sh 'docker logout'
+      }
     }
   }
 }
