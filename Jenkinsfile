@@ -31,8 +31,7 @@ pipeline {
       steps {
         withKubeConfig([credentialsId: 'kube-config']) {
           sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
-          sh 'chmod u+x ./kubectl'  
-          sh './kubectl get nodes'
+          sh 'chmod u+x ./kubectl'
           sh './kubectl config get-contexts'
           sh './kubectl rollout restart deployment flask-app'
         }
