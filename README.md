@@ -5,7 +5,7 @@ This repo contains Kubernetes Deployment and Jenkins CI/CD pipeline configuratio
 ### Kubernetes Manifests
 
 The Kubernetes folder contains the following manifest files:
-- configmap.yaml: deploys a ConfigMap Kubernetes Object which contains a map of the environment variables for the application.
+- **configmap.yaml**: deploys a ConfigMap Kubernetes Object which contains a map of the environment variables for the application.
 - secret.yaml: deploys a Secret Kubernetes Object which contains the encrypted database password.
 - deployment.yaml: deploys a Deploymnet Kubernetes Object which contains the app pod template to be deployed.
 
